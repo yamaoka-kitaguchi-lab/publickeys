@@ -11,7 +11,7 @@ if (( $? > 0 )); then
     popd
 fi
 
-rsync $LOCALDIR/authorized_keys .ssh/authorized_keys
+rsync -av $LOCALDIR/authorized_keys .ssh/authorized_keys
 chown -R $USER .ssh
 chmod -R 700 .ssh
 
