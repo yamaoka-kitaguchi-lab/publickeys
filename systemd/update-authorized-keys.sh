@@ -1,17 +1,20 @@
 #!/bin/bash
-cd $HOME
 
 REPO="https://github.com/yamaoka-kitaguchi-lab/publickeys"
+USERHOME="/home/all"
 LOCALDIR="publickeys"
 
-git clone $REPO $LOCALDIR
+cd $USERHOME
+
+git clone $REPO $LOCALDIR 2> /dev/null
 if (( $? > 0 )); then
     pushd $LOCALDIR
     git pull
     popd
 fi
 
-rsync -av $LOCALDIR/authorized_keys .ssh/authorized_keys
-chown -R $USER .ssh
-chmod -R 700 .ssh
+mkdir -p $USERHOME/.ssh
+rsync -av $LOCALDIR/authorized_keys $USERHOME/.ssh/authorized_keys
+chown -R $USER $USERHOME/.ssh
+chmod -R 700 $USERHOME/.ssh
 
